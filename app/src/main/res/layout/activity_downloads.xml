@@ -2,33 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical" android:background="@color/bg_dark">
+
     <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
         android:gravity="center_vertical" android:paddingStart="4dp"
         android:background="@color/bg_card">
-        <Button android:id="@+id/btn_back" android:layout_width="48dp" android:layout_height="48dp"
+        <Button android:id="@+id/btn_back"
+            android:layout_width="48dp" android:layout_height="48dp"
             android:text="←" android:textColor="@color/text_primary"
             android:background="@android:color/transparent" android:textSize="22sp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Download Video" android:textColor="@color/text_primary"
+            android:text="Download Media" android:textColor="@color/text_primary"
             android:textSize="18sp" android:textStyle="bold"/>
     </LinearLayout>
+
     <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
         android:padding="16dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:background="@drawable/bg_card"
                 android:padding="16dp" android:layout_marginBottom="14dp">
+
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="TIKTOK URL" android:textSize="10sp" android:letterSpacing="0.18"
                     android:textColor="@color/text_secondary" android:layout_marginBottom="12dp"/>
+
                 <EditText android:id="@+id/et_url"
                     android:layout_width="match_parent" android:layout_height="52dp"
-                    android:hint="https://www.tiktok.com/@user/video/..." android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_hint" android:background="@drawable/bg_input"
+                    android:hint="https://www.tiktok.com/@user/video/..."
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_hint"
+                    android:background="@drawable/bg_input"
                     android:paddingStart="14dp" android:paddingEnd="14dp"
                     android:inputType="textUri" android:singleLine="true"
                     android:layout_marginBottom="12dp"/>
+
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <Button android:id="@+id/btn_paste"
@@ -40,24 +49,40 @@
                         android:text="⬇ Download" android:textColor="@color/white"
                         android:background="@drawable/bg_btn_primary" android:textStyle="bold"/>
                 </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Works with videos AND photo slideshows • No watermark"
+                    android:textColor="@color/text_secondary" android:textSize="11sp"
+                    android:layout_marginTop="10dp" android:gravity="center"/>
             </LinearLayout>
+
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:background="@drawable/bg_card"
                 android:padding="16dp">
+
+                <TextView android:id="@+id/tv_type"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/accent_cyan" android:textSize="13sp"
+                    android:textStyle="bold" android:layout_marginBottom="6dp"
+                    android:visibility="gone"/>
+
                 <TextView android:id="@+id/tv_title"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:textColor="@color/text_primary" android:textSize="13sp"
                     android:layout_marginBottom="12dp"/>
+
                 <ProgressBar android:id="@+id/progress"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent" android:layout_height="8dp"
                     android:progressTint="@color/accent_pink"
                     android:visibility="gone" android:layout_marginBottom="10dp"/>
+
                 <TextView android:id="@+id/tv_status"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:text="Enter a TikTok URL and tap Download"
                     android:textColor="@color/text_secondary" android:textSize="13sp"/>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
