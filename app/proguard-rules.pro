@@ -1,0 +1,8 @@
+-keep class com.tiktokaitool.** { *; }
+-keep class androidx.** { *; }
+-keep class com.google.android.material.** { *; }
+-keep class com.bumptech.glide.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn org.json.**
