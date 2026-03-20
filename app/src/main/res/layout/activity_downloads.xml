@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical" android:background="@color/bg_dark">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dark">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
         android:gravity="center_vertical" android:paddingStart="4dp"
         android:background="@color/bg_card">
-        <Button android:id="@+id/btn_back"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
             android:layout_width="48dp" android:layout_height="48dp"
             android:text="←" android:textColor="@color/text_primary"
-            android:background="@android:color/transparent" android:textSize="22sp"/>
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Download Media" android:textColor="@color/text_primary"
             android:textSize="18sp" android:textStyle="bold"/>
@@ -20,68 +24,93 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/bg_card"
-                android:padding="16dp" android:layout_marginBottom="14dp">
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="TIKTOK URL" android:textSize="10sp" android:letterSpacing="0.18"
-                    android:textColor="@color/text_secondary" android:layout_marginBottom="12dp"/>
-
-                <EditText android:id="@+id/et_url"
-                    android:layout_width="match_parent" android:layout_height="52dp"
-                    android:hint="https://www.tiktok.com/@user/video/..."
-                    android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_hint"
-                    android:background="@drawable/bg_input"
-                    android:paddingStart="14dp" android:paddingEnd="14dp"
-                    android:inputType="textUri" android:singleLine="true"
-                    android:layout_marginBottom="12dp"/>
-
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="@color/divider" app:strokeWidth="1dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <Button android:id="@+id/btn_paste"
-                        android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
-                        android:text="📋 Paste" android:textColor="@color/text_primary"
-                        android:background="@drawable/bg_btn_secondary" android:layout_marginEnd="8dp"/>
-                    <Button android:id="@+id/btn_download"
-                        android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="2"
-                        android:text="⬇ Download" android:textColor="@color/white"
-                        android:background="@drawable/bg_btn_primary" android:textStyle="bold"/>
+                    android:orientation="vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="TIKTOK URL" android:textSize="10sp" android:letterSpacing="0.18"
+                        android:textColor="@color/text_secondary" android:layout_marginBottom="12dp"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="@color/accent_purple"
+                        app:hintTextColor="@color/text_secondary">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_url"
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:hint="https://www.tiktok.com/@user/video/..."
+                            android:textColor="@color/text_primary"
+                            android:inputType="textUri" android:singleLine="true"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_paste"
+                            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
+                            android:text="📋 Paste" android:textColor="@color/text_primary"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            app:strokeColor="@color/divider" android:layout_marginEnd="8dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_fetch"
+                            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
+                            android:text="Resolve" android:textColor="@color/white"
+                            app:backgroundTint="@color/accent_purple" android:layout_marginEnd="8dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_download"
+                            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1.2"
+                            android:text="⬇ Download" android:textColor="@color/white"
+                            android:textStyle="bold" app:backgroundTint="@color/accent_pink"
+                            android:enabled="false"/>
+                    </LinearLayout>
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="Works with videos AND photo slideshows • No watermark"
-                    android:textColor="@color/text_secondary" android:textSize="11sp"
-                    android:layout_marginTop="10dp" android:gravity="center"/>
-            </LinearLayout>
+            <!-- Progress fetch -->
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_fetch"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:indicatorColor="@color/accent_purple"
+                android:indeterminate="true"
+                android:visibility="gone"/>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:background="@drawable/bg_card"
-                android:padding="16dp">
-
-                <TextView android:id="@+id/tv_type"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:textColor="@color/accent_cyan" android:textSize="13sp"
-                    android:textStyle="bold" android:layout_marginBottom="6dp"
-                    android:visibility="gone"/>
-
-                <TextView android:id="@+id/tv_title"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" android:textSize="13sp"
-                    android:layout_marginBottom="12dp"/>
-
-                <ProgressBar android:id="@+id/progress"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent" android:layout_height="8dp"
-                    android:progressTint="@color/accent_pink"
-                    android:visibility="gone" android:layout_marginBottom="10dp"/>
-
-                <TextView android:id="@+id/tv_status"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="Enter a TikTok URL and tap Download"
-                    android:textColor="@color/text_secondary" android:textSize="13sp"/>
-            </LinearLayout>
+            <!-- Result card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layout_result"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="@color/divider" app:strokeWidth="1dp"
+                android:visibility="gone">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+                    <TextView android:id="@+id/tv_media_type"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/accent_cyan" android:textSize="13sp"
+                        android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <TextView android:id="@+id/tv_title"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/text_primary" android:textSize="13sp"
+                        android:layout_marginBottom="14dp"/>
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/progress_download"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:indicatorColor="@color/accent_pink"
+                        android:indeterminate="false"
+                        android:max="100"/>
+                    <TextView android:id="@+id/tv_status"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:text="Choose quality to download"
+                        android:textColor="@color/text_secondary" android:textSize="13sp"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
