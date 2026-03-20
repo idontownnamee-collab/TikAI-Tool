@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#000000">
+    <com.tiktokaitool.CropView android:id="@+id/crop_view"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:text="Drag corners to select • Tap Analyze"
+        android:textColor="#DDFFFFFF" android:textSize="12sp"
+        android:background="#88000000" android:padding="10dp"/>
+    <LinearLayout android:id="@+id/bottom_bar"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" android:orientation="horizontal"
+        android:padding="12dp" android:background="#DD000000">
+        <Button android:id="@+id/btn_cancel"
+            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
+            android:text="Cancel" android:textColor="#AAFFFFFF"
+            android:background="@drawable/bg_btn_secondary" android:layout_marginEnd="8dp"/>
+        <Button android:id="@+id/btn_full"
+            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
+            android:text="Full Screen" android:textColor="@color/accent_cyan"
+            android:background="@drawable/bg_btn_secondary" android:layout_marginEnd="8dp"/>
+        <Button android:id="@+id/btn_analyze"
+            android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1.5"
+            android:text="✨ Analyze" android:textColor="@color/white"
+            android:background="@drawable/bg_btn_primary" android:textStyle="bold"/>
+    </LinearLayout>
+</RelativeLayout>
