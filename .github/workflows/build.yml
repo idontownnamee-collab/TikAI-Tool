@@ -7,31 +7,50 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
           java-version: "17"
           distribution: "temurin"
-      - uses: android-actions/setup-android@v3
-      - name: Install SDK
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install SDK components
         run: |
-          sdkmanager "platforms;android-33"
-          sdkmanager "build-tools;33.0.2"
-      - name: Gradle wrapper
+          sdkmanager "platforms;android-34"
+          sdkmanager "build-tools;34.0.0"
+
+      - name: Setup Gradle wrapper
         run: |
-          curl -L -o g.zip https://services.gradle.org/distributions/gradle-7.5-bin.zip
-          unzip -q g.zip
-          gradle-7.5/bin/gradle wrapper --gradle-version 7.5
-          rm -rf g.zip gradle-7.5
+          curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-8.4-bin.zip
+          unzip -q gradle.zip
+          gradle-8.4/bin/gradle wrapper --gradle-version 8.4
+          rm -rf gradle.zip gradle-8.4
           chmod +x gradlew
-      - name: Build APK
-        run: ./gradlew assembleDebug --no-daemon
-      - name: Find APK
+
+      - name: Fix gradle files and generate assets
+        run: python3 generate_assets.py
+
+      - name: Show fixed app/build.gradle
+        run: cat app/build.gradle
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Find and copy APK
         run: |
           APK=$(find . -name "app-debug.apk" | head -1)
-          cp "$APK" TikAI_v1.0.apk
-      - uses: actions/upload-artifact@v4
+          if [ -z "$APK" ]; then echo "APK not found!"; exit 1; fi
+          cp "$APK" TikAI_Tool_v1.0.apk
+          ls -lh TikAI_Tool_v1.0.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
-          name: TikAI-APK
-          path: TikAI_v1.0.apk
-          retention-days: 30 
+          name: TikAI-Tool-APK
+          path: TikAI_Tool_v1.0.apk
+          retention-days: 30
