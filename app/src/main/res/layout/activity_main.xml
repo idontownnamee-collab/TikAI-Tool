@@ -1,107 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/bg_dark" android:fillViewport="true">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="16dp">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
 
-        <!-- Header card -->
-        <LinearLayout android:id="@+id/card_header"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingBottom="20dp">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="TikAI Tool" android:textSize="32sp" android:textStyle="bold"
-                android:textColor="@color/accent_pink"/>
-            <TextView android:id="@+id/tv_status"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="● AI Overlay Off" android:textSize="12sp"
-                android:textColor="@color/text_secondary" android:layout_marginTop="4dp"/>
-        </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- API warning -->
-        <TextView android:id="@+id/tv_api_warn"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="⚠  No API key — tap here to set it in Settings"
-            android:textColor="@color/warning_yellow" android:textSize="12sp"
-            android:background="#1AEAB308" android:padding="14dp"
-            android:layout_marginBottom="14dp" android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:paddingBottom="80dp">
 
-        <!-- Action cards -->
-        <LinearLayout android:id="@+id/card_actions"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:background="@drawable/bg_card"
-            android:padding="16dp" android:layout_marginBottom="12dp">
-
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="ACTIONS" android:textSize="10sp" android:letterSpacing="0.18"
-                android:textColor="@color/text_secondary" android:layout_marginBottom="14dp"/>
-
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal" android:layout_marginBottom="10dp">
-                <Button android:id="@+id/btn_open_tiktok"
-                    android:layout_width="0dp" android:layout_height="54dp" android:layout_weight="1"
-                    android:text="Open TikTok" android:textColor="@color/white"
-                    android:background="@drawable/bg_btn_secondary"
-                    android:textSize="14sp" android:layout_marginEnd="8dp"/>
-                <Button android:id="@+id/btn_ai_finder"
-                    android:layout_width="0dp" android:layout_height="54dp" android:layout_weight="1"
-                    android:text="✨ AI Finder" android:textColor="@color/white"
-                    android:background="@drawable/bg_btn_primary"
-                    android:textStyle="bold" android:textSize="14sp"/>
+            <!-- Header -->
+            <LinearLayout android:id="@+id/card_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TikAI Tool"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/accent_pink"/>
+                <TextView android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="● AI Overlay Off"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
 
-            <Button android:id="@+id/btn_stop_overlay"
-                android:layout_width="match_parent" android:layout_height="44dp"
-                android:text="Stop Overlay" android:textColor="@color/red"
-                android:background="@drawable/bg_btn_danger"
-                android:textSize="13sp" android:visibility="gone"/>
-        </LinearLayout>
+            <!-- API Warning -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tv_api_warn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="#1AEAB308"
+                app:cardCornerRadius="12dp"
+                app:strokeColor="#44EAB308"
+                app:strokeWidth="1dp"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="⚠  No API key — tap to set it in Settings"
+                    android:textColor="@color/warning_yellow"
+                    android:textSize="13sp"/>
+            </com.google.android.material.card.MaterialCardView>
 
-        <!-- Download card -->
-        <LinearLayout android:id="@+id/card_download"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical" android:background="@drawable/bg_card"
-            android:padding="16dp" android:layout_marginBottom="12dp">
+            <!-- Actions Card -->
+            <com.google.android.material.card.MaterialCardView android:id="@+id/card_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="@color/divider"
+                app:strokeWidth="1dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ACTIONS"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.18"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="14dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_open_tiktok"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_weight="1"
+                            android:text="Open TikTok"
+                            android:textColor="@color/text_primary"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            app:strokeColor="@color/divider"
+                            android:layout_marginEnd="8dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_ai_finder"
+                            android:layout_width="0dp"
+                            android:layout_height="54dp"
+                            android:layout_weight="1"
+                            android:text="✨ AI Finder"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/accent_purple"/>
+                    </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_stop_overlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:text="Stop Overlay"
+                        android:textColor="@color/red"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        app:strokeColor="@color/red"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="DOWNLOAD (NO WATERMARK)" android:textSize="10sp"
-                android:letterSpacing="0.18" android:textColor="@color/text_secondary"
-                android:layout_marginBottom="12dp"/>
+            <!-- Download Card -->
+            <com.google.android.material.card.MaterialCardView android:id="@+id/card_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="16dp"
+                app:strokeColor="@color/divider"
+                app:strokeWidth="1dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DOWNLOAD (NO WATERMARK)"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.18"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="12dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            app:boxStrokeColor="@color/divider"
+                            app:hintTextColor="@color/text_secondary">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_url"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Paste TikTok URL..."
+                                android:textColor="@color/text_primary"
+                                android:textColorHint="@color/text_hint"
+                                android:inputType="textUri"
+                                android:singleLine="true"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_paste"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:text="📋"
+                            android:padding="0dp"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            app:strokeColor="@color/divider"
+                            android:layout_marginEnd="6dp"/>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_download"
+                            android:layout_width="60dp"
+                            android:layout_height="48dp"
+                            android:text="Get"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/accent_pink"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            <!-- Bottom Row -->
+            <LinearLayout android:id="@+id/card_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <EditText android:id="@+id/et_url"
-                    android:layout_width="0dp" android:layout_height="50dp" android:layout_weight="1"
-                    android:hint="Paste TikTok URL..." android:textColor="@color/text_primary"
-                    android:textColorHint="@color/text_hint" android:background="@drawable/bg_input"
-                    android:paddingStart="14dp" android:paddingEnd="14dp"
-                    android:inputType="textUri" android:singleLine="true"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_history"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="📋 History"
+                    android:textColor="@color/text_primary"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/divider"
                     android:layout_marginEnd="8dp"/>
-                <Button android:id="@+id/btn_paste"
-                    android:layout_width="50dp" android:layout_height="50dp"
-                    android:text="📋" android:background="@drawable/bg_btn_secondary"
-                    android:padding="0dp" android:layout_marginEnd="8dp"/>
-                <Button android:id="@+id/btn_download"
-                    android:layout_width="70dp" android:layout_height="50dp"
-                    android:text="Get" android:textColor="@color/white"
-                    android:background="@drawable/bg_btn_primary" android:textStyle="bold"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="⚙ Settings"
+                    android:textColor="@color/text_primary"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/divider"/>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Bottom row -->
-        <LinearLayout android:id="@+id/card_bottom"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button android:id="@+id/btn_history"
-                android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:text="📋 History" android:textColor="@color/text_primary"
-                android:background="@drawable/bg_btn_secondary" android:layout_marginEnd="8dp"
-                android:textSize="13sp"/>
-            <Button android:id="@+id/btn_settings"
-                android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:text="⚙ Settings" android:textColor="@color/text_primary"
-                android:background="@drawable/bg_btn_secondary" android:textSize="13sp"/>
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+    <!-- Clipboard FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_paste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Paste TikTok Link"
+        android:textColor="@color/white"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:iconTint="@color/white"
+        app:backgroundTint="@color/accent_purple"
+        app:elevation="6dp"
+        android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
