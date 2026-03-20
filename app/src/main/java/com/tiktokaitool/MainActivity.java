@@ -1,12 +1,11 @@
 package com.tiktokaitool;
 
-import android.animation.ObjectAnimator;
 import android.content.*;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.*;
 import android.provider.Settings;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
@@ -26,20 +25,15 @@ public class MainActivity extends AppCompatActivity {
         etUrl     = findViewById(R.id.et_url);
         tvStatus  = findViewById(R.id.tv_status);
         tvApiWarn = findViewById(R.id.tv_api_warn);
-
         animateCards();
-
         findViewById(R.id.btn_open_tiktok).setOnClickListener(v -> { animBtn(v); openTikTok(); });
         findViewById(R.id.btn_ai_finder).setOnClickListener(v -> { animBtn(v); startAiFinder(); });
         findViewById(R.id.btn_paste).setOnClickListener(v -> pasteUrl());
         findViewById(R.id.btn_download).setOnClickListener(v -> { animBtn(v); startDownload(); });
         findViewById(R.id.btn_stop_overlay).setOnClickListener(v -> stopOverlay());
-        findViewById(R.id.btn_history).setOnClickListener(v ->
-            startActivity(new Intent(this, HistoryActivity.class)));
-        findViewById(R.id.btn_settings).setOnClickListener(v ->
-            startActivity(new Intent(this, SettingsActivity.class)));
-        findViewById(R.id.tv_api_warn).setOnClickListener(v ->
-            startActivity(new Intent(this, SettingsActivity.class)));
+        findViewById(R.id.btn_history).setOnClickListener(v -> startActivity(new Intent(this, HistoryActivity.class)));
+        findViewById(R.id.btn_settings).setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
+        findViewById(R.id.tv_api_warn).setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
     }
 
     private void animateCards() {
@@ -47,19 +41,17 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < ids.length; i++) {
             View v = findViewById(ids[i]);
             if (v == null) continue;
-            v.setAlpha(0f); v.setTranslationY(60f);
-            v.animate().alpha(1f).translationY(0f)
-                .setDuration(400).setStartDelay(i * 80L)
-                .setInterpolator(new android.view.animation.DecelerateInterpolator())
-                .start();
+            v.setAlpha(0f);
+            v.setTranslationY(60f);
+            v.animate().alpha(1f).translationY(0f).setDuration(400)
+                .setStartDelay(i * 80L).setInterpolator(new DecelerateInterpolator()).start();
         }
     }
 
     private void animBtn(View v) {
-        v.animate().scaleX(0.93f).scaleY(0.93f).setDuration(80)
-            .withEndAction(() -> v.animate().scaleX(1f).scaleY(1f)
-                .setDuration(180).setInterpolator(new OvershootInterpolator()).start())
-            .start();
+        v.animate().scaleX(0.93f).scaleY(0.93f).setDuration(80).withEndAction(
+            () -> v.animate().scaleX(1f).scaleY(1f).setDuration(180)
+                .setInterpolator(new OvershootInterpolator()).start()).start();
     }
 
     private void openTikTok() {
@@ -70,14 +62,18 @@ public class MainActivity extends AppCompatActivity {
                 if (i != null) { startActivity(i); return; }
             } catch (Exception ignored) {}
         }
-        try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zhiliaoapp.musically"))); }
-        catch (Exception e) { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically"))); }
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.zhiliaoapp.musically")));
+        } catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically")));
+        }
     }
 
     private void startAiFinder() {
         if (prefs.getApiKey().isEmpty()) {
             Toast.makeText(this, "Set Claude API key in Settings first!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, SettingsActivity.class)); return;
+            startActivity(new Intent(this, SettingsActivity.class));
+            return;
         }
         if (!Settings.canDrawOverlays(this)) {
             new AlertDialog.Builder(this)
@@ -94,8 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchOverlayAndTikTok() {
         Intent si = new Intent(this, OverlayService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) startForegroundService(si);
-        else startService(si);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(si);
+        } else {
+            startService(si);
+        }
         new Handler().postDelayed(this::openTikTok, 500);
         Toast.makeText(this, "FIND button active! Drag it anywhere.", Toast.LENGTH_LONG).show();
         updateStatus();
@@ -103,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopOverlay() {
         Intent i = new Intent(this, OverlayService.class);
-        i.setAction("STOP"); startService(i);
+        i.setAction("STOP");
+        startService(i);
         new Handler().postDelayed(this::updateStatus, 400);
     }
 
@@ -114,14 +114,22 @@ public class MainActivity extends AppCompatActivity {
             if (t != null && (t.toString().contains("tiktok.com") || t.toString().contains("vm.tiktok"))) {
                 etUrl.setText(t.toString());
                 Toast.makeText(this, "Pasted!", Toast.LENGTH_SHORT).show();
-            } else Toast.makeText(this, "No TikTok URL in clipboard", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No TikTok URL in clipboard", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void startDownload() {
         String url = etUrl.getText().toString().trim();
-        if (url.isEmpty()) { Toast.makeText(this, "Paste a TikTok URL first", Toast.LENGTH_SHORT).show(); return; }
-        if (!url.contains("tiktok")) { Toast.makeText(this, "Not a valid TikTok URL", Toast.LENGTH_SHORT).show(); return; }
+        if (url.isEmpty()) {
+            Toast.makeText(this, "Paste a TikTok URL first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!url.contains("tiktok")) {
+            Toast.makeText(this, "Not a valid TikTok URL", Toast.LENGTH_SHORT).show();
+            return;
+        }
         startActivity(new Intent(this, DownloadsActivity.class).putExtra("url", url));
     }
 
@@ -142,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int req, int res, Intent data) {
         super.onActivityResult(req, res, data);
-        if (req == OVERLAY_REQ && Settings.canDrawOverlays(this)) launchOverlayAndTikTok();
+        if (req == OVERLAY_REQ && Settings.canDrawOverlays(this)) {
+            launchOverlayAndTikTok();
+        }
     }
-}           }
+}
